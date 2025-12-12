@@ -31,5 +31,9 @@ urlpatterns = [
 
     # Booking API from the ViewSet
     path('restaurant/booking/', include(router.urls)),
+    
+    # --- Djoser URLs ---
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
 
