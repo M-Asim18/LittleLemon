@@ -12,14 +12,14 @@ class MenuItemsView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuSerializer
     # Uncomment this if you want menu to be protected
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuSerializer
     # Uncomment to require token
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 # ----------- BOOKING VIEWSET -----------
