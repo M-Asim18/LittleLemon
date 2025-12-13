@@ -1,6 +1,6 @@
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import MenuItem, Booking
@@ -12,14 +12,14 @@ class MenuItemsView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuSerializer
     # Uncomment this if you want menu to be protected
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuSerializer
     # Uncomment to require token
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 
 # ----------- BOOKING VIEWSET -----------

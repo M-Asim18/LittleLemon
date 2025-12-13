@@ -1,27 +1,29 @@
 from django.test import TestCase, Client
-from django.urls import reverse  # Standard Django module for finding URLs
+from django.urls import reverse
 from restaurant.models import MenuItem
 from restaurant.serializers import MenuSerializer
+from django.contrib.auth.models import User  # <--- 1. Import User model
 
 class MenuViewTest(TestCase):
     def setUp(self):
         self.client = Client()
+        
+        # 2. Create a standard user for testing
+        self.user = User.objects.create_user(username='testUser', password='testPassword')
+        
+        # 3. Force the test client to "log in" as this user
+        self.client.force_login(self.user)
+
+        # Create menu items
         self.item1 = MenuItem.objects.create(title="IceCream", price=80, inventory=100)
         self.item2 = MenuItem.objects.create(title="Burger", price=50, inventory=50)
 
     def test_getall(self):
-        # 1. Retrieve data from DB
         items = MenuItem.objects.all()
-        # Serialize the data
         serializer = MenuSerializer(items, many=True)
         
-        # 2. Make request using reverse()
-        # This looks up "name='menu-items'" in your urls.py and calculates the correct path
+        # Now this request will be "Authenticated" and return 200 OK
         response = self.client.get(reverse('menu-items'))
         
-        # 3. Check status
-        # If this fails with 404, it means the URL is not connected in the project urls.py
         self.assertEqual(response.status_code, 200)
-
-        # 4. Check data
         self.assertEqual(response.data, serializer.data)
