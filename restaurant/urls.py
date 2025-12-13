@@ -4,7 +4,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     # Menu Items
-    path('menu-items/', views.MenuItemsView.as_view()), # Changed to plural
+    path('menu-items/', views.MenuItemsView.as_view(), name='menu-items'), # Changed to plural
     path('menu-items/<int:pk>/', views.SingleMenuItemView.as_view()), # Added trailing slash
 
     # Protected Message

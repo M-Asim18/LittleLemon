@@ -9,7 +9,7 @@ class MenuItem(models.Model):
         return f"{self.title} : {self.price}"
 
     def __str__(self):
-        return self.title
+        return f'{self.title} : {str(self.price)}'
 
 
 class Booking(models.Model):
